@@ -1,0 +1,23 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<header>
+    <div>
+        <h1>SurviveShare</h1>
+        <p><fmt:message key="app.tagline"/></p>
+    </div>
+    <nav>
+        <a href="index.jsp"><fmt:message key="nav.home"/></a>
+        <a href="tips/list.jsp"><fmt:message key="nav.tips"/></a>
+        <a href="items/list.jsp"><fmt:message key="nav.items"/></a>
+        <a href="user/mypage.jsp"><fmt:message key="nav.mypage"/></a>
+        <span class="lang-selector">
+            <form action="LocaleServlet" method="post" style="display:inline;">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="ko">한국어</option>
+                    <option value="en">English</option>
+                    <option value="jp">日本語</option>
+                </select>
+            </form>
+        </span>
+    </nav>
+</header>

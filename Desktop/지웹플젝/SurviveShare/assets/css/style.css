@@ -1,0 +1,70 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    background: #f5f7fb;
+    color: #333;
+}
+header {
+    background: linear-gradient(90deg, #00b4db, #0083b0);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav a {
+    color: #fff;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: 600;
+}
+main { padding: 30px; }
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+.button {
+    background: #0083b0;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.button.secondary { background: #f39c12; }
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th,
+.table td {
+    border-bottom: 1px solid #e1e4eb;
+    padding: 12px;
+}
+.progress {
+    width: 100%;
+    background: #e1e1e1;
+    border-radius: 5px;
+    height: 20px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 20px;
+    background: #4caf50;
+    width: 0;
+}
+.recent-items {
+    display: flex;
+    gap: 15px;
+}
+.recent-item {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.lang-selector { color:#fff; }
+.alert { color:#c0392b; }
