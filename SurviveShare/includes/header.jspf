@@ -1,0 +1,120 @@
+<header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important; padding: 1rem 0 !important; margin-bottom: 1.5rem !important; width: 100% !important;">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+            <h1 class="h4 mb-0" style="color: #ffffff !important; margin: 0 !important; font-weight: bold !important;">🏠 SurviveShare</h1>
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(255,255,255,0.2) !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.5) !important; border-radius: 4px !important; padding: 4px 12px !important;">
+                    <span id="langButtonText">🌐 언어 선택</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                    <li>
+                        <a class="dropdown-item" href="#" onclick="changeLanguage('ko'); return false;" style="padding: 8px 16px; cursor: pointer;">
+                            🇰🇷 한국어<c:if test="${sessionScope.lang eq 'ko'}"> ✓</c:if>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#" onclick="changeLanguage('en'); return false;" style="padding: 8px 16px; cursor: pointer;">
+                            🇺🇸 English<c:if test="${sessionScope.lang eq 'en'}"> ✓</c:if>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#" onclick="changeLanguage('jp'); return false;" style="padding: 8px 16px; cursor: pointer;">
+                            🇯🇵 日本語<c:if test="${sessionScope.lang eq 'jp'}"> ✓</c:if>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <nav class="d-flex align-items-center gap-3" style="flex-wrap: nowrap !important;">
+            <a href="#" onclick="navigateToPage(CONTEXT_PATH + '/index.jsp'); return false;" style="color: #ffffff !important; text-decoration: none !important; font-weight: 500 !important; white-space: nowrap !important; cursor: pointer;">홈</a>
+            <span style="color: #ffffff !important;">|</span>
+            <a href="#" onclick="navigateToPage(CONTEXT_PATH + '/items/list.jsp'); return false;" style="color: #ffffff !important; text-decoration: none !important; font-weight: 500 !important; white-space: nowrap !important; cursor: pointer;">물품 공유</a>
+            <span style="color: #ffffff !important;">|</span>
+            <a href="#" onclick="navigateToPage(CONTEXT_PATH + '/tips/list.jsp'); return false;" style="color: #ffffff !important; text-decoration: none !important; font-weight: 500 !important; white-space: nowrap !important; cursor: pointer;">꿀팁 공유</a>
+            <span style="color: #ffffff !important;">|</span>
+            <a href="#" onclick="navigateToPage(CONTEXT_PATH + '/recipes/list.jsp'); return false;" style="color: #ffffff !important; text-decoration: none !important; font-weight: 500 !important; white-space: nowrap !important; cursor: pointer;">레시피 공유</a>
+            <span style="color: #ffffff !important;">|</span>
+            <a href="#" onclick="navigateToPage(CONTEXT_PATH + '/challenge/ranking.jsp'); return false;" style="color: #ffffff !important; text-decoration: none !important; font-weight: 500 !important; white-space: nowrap !important; cursor: pointer;">랭킹</a>
+        </nav>
+    </div>
+</header>
+<script>
+(function() {
+    // Get contextPath from current URL
+    function getContextPath() {
+        var pathname = window.location.pathname;
+        if (pathname.indexOf('/SurviveShare') !== -1) {
+            return '/SurviveShare';
+        } else if (pathname.indexOf('/') === 0 && pathname.split('/').length > 2) {
+            return '/' + pathname.split('/')[1];
+        }
+        return '';
+    }
+    
+    window.getContextPath = getContextPath;
+    
+    var contextPath = getContextPath();
+    if (typeof CONTEXT_PATH === 'undefined') {
+        window.CONTEXT_PATH = contextPath;
+    }
+    
+    // 페이지 이동 함수 (POST 방식)
+    window.navigateToPage = function(url) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = url;
+        
+        document.body.appendChild(form);
+        form.submit();
+    };
+    
+    // 언어 변경 함수
+    window.changeLanguage = function(lang) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = contextPath + '/LocaleServlet';
+        
+        var langInput = document.createElement('input');
+        langInput.type = 'hidden';
+        langInput.name = 'lang';
+        langInput.value = lang;
+        form.appendChild(langInput);
+        
+        document.body.appendChild(form);
+        form.submit();
+    };
+    
+    // 언어 버튼 텍스트 업데이트
+    function updateLanguageTexts() {
+        var currentLang = '<%= currentLang != null ? currentLang : "ko" %>';
+        var langButtonText = document.getElementById('langButtonText');
+        if (langButtonText) {
+            if (currentLang === 'en') {
+                langButtonText.textContent = '🌐 Language';
+            } else if (currentLang === 'jp') {
+                langButtonText.textContent = '🌐 言語';
+            } else {
+                langButtonText.textContent = '🌐 언어 선택';
+            }
+        }
+    }
+
+    function initLangDropdown() {
+        var langDropdownButton = document.getElementById('langDropdown');
+        if (langDropdownButton && typeof bootstrap !== 'undefined' && bootstrap.Dropdown) {
+            bootstrap.Dropdown.getOrCreateInstance(langDropdownButton);
+        }
+    }
+    
+    // DOMContentLoaded 또는 즉시 실행
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLanguageTexts();
+            initLangDropdown();
+        });
+    } else {
+        updateLanguageTexts();
+        initLangDropdown();
+    }
+})();
+</script>
