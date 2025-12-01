@@ -177,3 +177,7 @@ lsof -ti:8085 | xargs kill -9
 ### 클래스 파일 누락
 다시 컴파일:
 ```bash
+cd /Users/gimminji/Desktop/지웹플젝/SurviveShare/WEB-INF/classes
+javac -cp "../../lib/*:/Users/gimminji/Downloads/apache-tomcat-9.0.109/lib/servlet-api.jar" \
+  com/surviveshare/**/*.java
+```
